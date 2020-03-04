@@ -1,0 +1,44 @@
+{
+    "name": "vlad",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/vlad.js",
+    "scripts": {
+        "build": "tsc && babel ./src -d dist --extensions .ts",
+        "test": "tsc && ava"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "@ava/babel": "^0.2.0",
+        "@babel/cli": "^7.7.7",
+        "@babel/core": "^7.7.7",
+        "@babel/preset-env": "^7.7.7",
+        "@babel/preset-typescript": "^7.7.7",
+        "@types/node": "^13.1.1",
+        "ava": "^2.4.0",
+        "eslint": "^6.8.0",
+        "eslint-config-lionc": "^1.2.0",
+        "esm": "^3.2.25",
+        "ts-node": "^8.5.4",
+        "typescript": "^3.7.4"
+    },
+    "ava": {
+        "files": [
+            "test/**/*.spec.ts"
+        ],
+        "compileEnhancements": false,
+        "extensions": [
+            "ts"
+        ],
+        "require": [
+            "ts-node/register",
+            "esm"
+        ]
+    },
+    "babel": {
+        "presets": [
+            "@babel/env",
+            "@babel/preset-typescript"
+        ]
+    }
+}
