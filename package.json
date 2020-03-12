@@ -14,7 +14,6 @@
         "@babel/core": "^7.7.7",
         "@babel/preset-env": "^7.7.7",
         "@babel/preset-typescript": "^7.7.7",
-        "@types/node": "^13.1.1",
         "ava": "^2.4.0",
         "eslint": "^6.8.0",
         "eslint-config-lionc": "^1.2.0",
@@ -40,5 +39,8 @@
             "@babel/env",
             "@babel/preset-typescript"
         ]
+    },
+    "dependencies": {
+        "deepmerge": "^4.2.2"
     }
 }
