@@ -10,7 +10,7 @@ type Primitive =
 
 export function requiredPrimitive(message: string): Validator<Primitive, PrimitiveErrors> {
     return function requiredValidator(value: Primitive): PrimitiveErrors | undefined {
-        if (value == undefined || value == null)
+        if (value === undefined || value === null)
             return [ message ]
 
         return undefined
