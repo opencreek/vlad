@@ -1,7 +1,7 @@
 import test from 'ava'
 
 import { ExecutionContext } from 'ava'
-import { required} from '../../src/validators/required'
+import { requiredPrimitive } from '../../src/validators/requiredPrimitive'
 import { minLength } from '../../src/validators/minLength'
 import { properties } from '../../src/validators/properties'
 
@@ -11,7 +11,7 @@ type User = {
 }
 
 const validator = properties({
-    age: required('Age is required'),
+    age: requiredPrimitive('Age is required'),
     name: minLength(4, 'Name must be at least 4 characters long'),
 })
 

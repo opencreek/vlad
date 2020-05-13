@@ -5,8 +5,8 @@ import { Validator } from '../src/types'
 export default function buildValidatorMacro<T, E>(
     validatorFunction: Validator<T, E>,
     expectedError: E,
-): Macro<[ T, boolean ]> {
-    return function validatorMacro(t: ExecutionContext, value: T, shouldValidate: boolean): void {
+): Macro<[ T | undefined, boolean ]> {
+    return function validatorMacro(t: ExecutionContext, value: T | undefined, shouldValidate: boolean): void {
         const validationResult = validatorFunction(value)
 
         if (shouldValidate)
