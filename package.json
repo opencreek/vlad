@@ -7,7 +7,7 @@
         "dist"
     ],
     "scripts": {
-        "build": "tsc && babel ./src -d dist --extensions .ts",
+        "build": "tsc",
         "test": "tsc && ava"
     },
     "license": "MIT",
