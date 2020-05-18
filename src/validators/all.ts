@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { Validator, SubjectType, PrimitiveErrors } from '../types'
+import { Validator, SubjectType } from '../types'
 import deepmerge from 'deepmerge'
 
 export function all<V1 extends Validator>(validator1: V1): Validator<SubjectType<V1>, ReturnType<V1>>
