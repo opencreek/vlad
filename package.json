@@ -8,7 +8,8 @@
     ],
     "scripts": {
         "build": "tsc",
-        "test": "tsc && ava"
+        "test": "tsc && ava",
+        "prepublish": "npm run build"
     },
     "license": "MIT",
     "devDependencies": {
