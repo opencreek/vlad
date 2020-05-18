@@ -3,6 +3,7 @@
     "version": "0.2.0",
     "description": "",
     "main": "dist/vlad.js",
+    "files": [ "dist" ],
     "scripts": {
         "build": "tsc && babel ./src -d dist --extensions .ts",
         "test": "tsc && ava"
