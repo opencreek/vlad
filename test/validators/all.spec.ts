@@ -1,6 +1,6 @@
 import test from 'ava'
 import { all } from '../../src/validators/all'
-import { is, minItems, maxItems, requiredPrimitive } from '../../src/vlad'
+import { is, minItems, maxItems, requiredPrimitive, allItems } from '../../src/vlad'
 import { min } from '../../src/validators/min'
 
 test('should not change the result of a single is validator', t => {
@@ -36,5 +36,17 @@ test('should merge errors for two top level object errors', t => {
     const output = validator([ 'asdf', 3 ])
 
     t.deepEqual(output, { _self: [ 'Must have at least 2 items', 'Must have a maximum of 1 item' ] })
+})
+
+test('should correctly type check with multiple validators', t => {
+    const validator = all(
+        minItems(3, 'Must have at least 2 items'),
+        allItems(requiredPrimitive('should be there'))
+    )
+    const output = validator([ 'asdf', 3 ])
+    const a = output?._self
+    const b = output?.[1]
+
+    t.deepEqual(a, [ 'Must have at least 2 items' ])
 })
 

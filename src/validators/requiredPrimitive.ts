@@ -4,7 +4,7 @@ type Primitive =
     | number
     | boolean
     | string
-    | Symbol
+    | symbol
     | null
     | undefined
 
