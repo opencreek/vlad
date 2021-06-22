@@ -17,3 +17,4 @@ export function allItems<V extends Validator>(validator: V): Validator<Array<Sub
         return Object.fromEntries(errorEntries)
     }
 }
+
