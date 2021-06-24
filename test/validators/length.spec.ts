@@ -16,3 +16,4 @@ test('fails on r', minTest, 'r', false)
 test('fails on et', minTest, 'et', false)
 test('fails on asdf', minTest, 'asdf', false)
 test('fails on qwert', minTest, 'qwert', false)
+

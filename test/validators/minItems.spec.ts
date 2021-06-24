@@ -12,3 +12,4 @@ test('fails on empty array', minItemsTest, [], false)
 test('fails on array with less items', minItemsTest, [ 'asdf' ], false)
 test('succeeds on array with exactly enough items', minItemsTest, [ 1, 'asdf' ], true)
 test('succeeds on array with more items', minItemsTest, [ true, {}, 'asdf' ], true)
+

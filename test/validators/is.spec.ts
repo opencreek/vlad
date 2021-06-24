@@ -19,3 +19,4 @@ test('succeeds on equal strings', isTest('foo'), 'foo', true)
 test('succeeds on different strings', isTest('foo'), 'bar', false)
 test('fails on equal objects', isTest({ foo: 'bar' }), { foo: 'bar' }, false)
 test('fails on equal arrays', isTest([ 1, 2 ]), [ 1, 2 ], false)
+

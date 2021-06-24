@@ -14,3 +14,4 @@ test('succeeds on empty array', requiredTest, [], true)
 test('succeeds on filled array', requiredTest, [ 0 ], true)
 
 test('succeeds on object', requiredTest, {}, true)
+

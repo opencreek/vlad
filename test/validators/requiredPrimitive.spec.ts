@@ -20,3 +20,4 @@ test('succeeds on negative number', requiredTest, -23, true)
 
 test('succeeds on true', requiredTest, true, true)
 test('succeeds on false', requiredTest, false, true)
+

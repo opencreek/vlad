@@ -13,3 +13,4 @@ test('fails on zero', nullishTest, 0, false)
 test('fails on empty string', nullishTest, '', false)
 test('fails on empty object', nullishTest, {}, false)
 test('fails on empty array', nullishTest, [], false)
+

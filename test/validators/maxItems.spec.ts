@@ -12,3 +12,4 @@ test('succeeds on empty array', maxItemsTest, [], true)
 test('succeeds on array with less items', maxItemsTest, [ 'asdf' ], true)
 test('succeeds on array with exactly maximum items', maxItemsTest, [ 1, 'asdf', true ], true)
 test('fails on array with more items', maxItemsTest, [ true, {}, 'asdf', 0 ], false)
+

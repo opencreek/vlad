@@ -15,3 +15,4 @@ export default function buildValidatorMacro<T, E>(
             t.deepEqual(validationResult, expectedError)
     }
 }
+

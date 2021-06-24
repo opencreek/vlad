@@ -24,3 +24,4 @@ function propertiesTest(t: ExecutionContext, value: User, expected: ReturnType<t
 test('fails on age', propertiesTest, { name: 'Carlo' }, { age: [ 'Age is required' ] })
 test('fails on short name', propertiesTest, { age: 10, name: 'C' }, { name: [ 'Name must be at least 4 characters long' ] })
 test('succeeds on age only', propertiesTest, { age: 15 }, undefined)
+

@@ -14,3 +14,4 @@ test('succeeds on 100', minTest, 100, true)
 test('fails on 2', minTest, 2, false)
 test('fails on -.2', minTest, -.2, false)
 test('fails on 0', minTest, 0, false)
+
