@@ -3,6 +3,26 @@
 import { Validator, SubjectType } from '../types'
 import { deepmerge } from '../deepmerge'
 
+/**
+ * Builds a validator function that applies all given validators to a value, merging their results
+ *
+ * Example:
+ *
+ * ```typescript
+ * const validator = all(
+ *     allItems(requiredPrimitive('Names must be set')),
+ *     maxItems(2, 'Cannot submit more than two names'),
+ * )
+ *
+ * console.assert(validator([ null, 'Kim', 'Arthur' ]) === {
+ *     _self: [ 'Cannot submit more than two names' ],
+ *     1: [ 'Names must be set' ],
+ * })
+ * console.assert(validator([ 'Kim', null ]) === { 1: [ 'Names must be set' ] })
+ * console.assert(validator([ 'Kim', 'Arthur', 'Monica' ]) === { _self: [ 'Cannot submit more than two names' ] })
+ * console.assert(validator([ 'Kim', 'Arthur' ]) === undefined)
+ * ```
+ */
 export function all<V1 extends Validator>(validator1: V1): Validator<Partial<SubjectType<V1>>, Partial<ReturnType<V1>>>
 export function all<V1 extends Validator, V2 extends Validator>(validator1: V1, validator2: V2): Validator<Partial<SubjectType<V1>> & Partial<SubjectType<V2>>, Partial<ReturnType<V1>> & Partial<ReturnType<V2>>>
 export function all<V1 extends Validator, V2 extends Validator, V3 extends Validator>(validator1: V1, validator2: V2, validator3: V3): Validator<Partial<SubjectType<V1>> & Partial<SubjectType<V2>> & Partial<SubjectType<V3>>, Partial<ReturnType<V1>> & Partial<ReturnType<V2>> & Partial<ReturnType<V3>>>
