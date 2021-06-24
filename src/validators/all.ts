@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import { Validator, SubjectType } from '../types'
-import deepmerge from 'deepmerge'
+import { deepmerge } from '../deepmerge'
 
 export function all<V1 extends Validator>(validator1: V1): Validator<Partial<SubjectType<V1>>, Partial<ReturnType<V1>>>
 export function all<V1 extends Validator, V2 extends Validator>(validator1: V1, validator2: V2): Validator<Partial<SubjectType<V1>> & Partial<SubjectType<V2>>, Partial<ReturnType<V1>> & Partial<ReturnType<V2>>>
@@ -23,9 +23,13 @@ export function all(...validators) {
                     if (cur === undefined)
                         return acc
 
+                    if (acc == undefined)
+                        return cur
+
                     return deepmerge(acc, cur)
                 },
                 undefined,
             )
     }
 }
+

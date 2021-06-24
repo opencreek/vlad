@@ -43,8 +43,5 @@
             "@babel/env",
             "@babel/preset-typescript"
         ]
-    },
-    "dependencies": {
-        "deepmerge": "^4.2.2"
     }
 }

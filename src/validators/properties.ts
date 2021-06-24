@@ -16,12 +16,16 @@ export function properties<
 
         const errorEntries = Object
             .keys(validatorMap)
-            .map(key => [ key, validatorMap[key](subject[key], context) ] as const)
+            .map(key => [
+                key,
+                validatorMap[key](subject[key], context),
+            ] as const)
             .filter(([ _, errors ]) => errors !== undefined)
 
         if (errorEntries.length === 0)
             return undefined
 
-        return Object.fromEntries(errorEntries)
+        return Object.fromEntries(errorEntries) as PropertiesValidatorResult<V>
     }
 }
+
