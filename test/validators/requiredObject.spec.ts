@@ -5,9 +5,9 @@ const testMessage = "This is required";
 const validator = requiredObject(testMessage);
 const requiredTest = buildValidatorTest(validator, { _self: [testMessage] });
 
-// Deno.test("fails on undefined", () => {
-//   requiredTest(undefined, false);
-// });
+Deno.test("fails on undefined", () => {
+  requiredTest(undefined, false);
+});
 Deno.test("succeeds on empty array", () => {
   requiredTest([], true);
 });
