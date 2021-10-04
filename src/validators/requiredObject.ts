@@ -18,9 +18,7 @@ import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts";
 export function requiredObject(
   message: string,
 ): Validator<object, ObjectTopLevelError<PrimitiveErrors>> {
-  return function requiredValidator(
-    value: object | undefined,
-  ): ObjectTopLevelError<PrimitiveErrors> | undefined {
+  return function requiredValidator(value) {
     if (value === undefined || value === null) {
       return { _self: [message] };
     }
