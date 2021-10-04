@@ -1,4 +1,4 @@
-import { Validator, PrimitiveErrors } from '../types'
+import { PrimitiveErrors, Validator } from "../types.ts";
 
 /**
  * Builds a validator function that checks if a value is equal to the given value
@@ -12,12 +12,17 @@ import { Validator, PrimitiveErrors } from '../types'
  * console.assert(validator(13) === undefined)
  * ```
  */
-export function is<T>(expected: T, message: string): Validator<T, PrimitiveErrors> {
-    return function isValidator(subject: T | undefined): PrimitiveErrors | undefined {
-        if (subject === expected)
-            return undefined
-
-        return [ message ]
+export function is<T>(
+  expected: T,
+  message: string,
+): Validator<T, PrimitiveErrors> {
+  return function isValidator(
+    subject: T | undefined,
+  ): PrimitiveErrors | undefined {
+    if (subject === expected) {
+      return undefined;
     }
-}
 
+    return [message];
+  };
+}

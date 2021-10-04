@@ -1,18 +1,20 @@
-import { Macro, ExecutionContext } from 'ava'
+import { Validator } from "../src/types.ts";
+import { assertEquals } from "./testingDeps.ts";
 
-import { Validator } from '../src/types'
+export function buildValidatorTest<T, E>(
+  validatorFunction: Validator<T, E>,
+  expectedError: E,
+): (value: T, shouldValidate: boolean) => void {
+  return function validatorTest(
+    value: T | undefined,
+    shouldValidate: boolean,
+  ): void {
+    const validationResult = validatorFunction(value);
 
-export default function buildValidatorMacro<T, E>(
-    validatorFunction: Validator<T, E>,
-    expectedError: E,
-): Macro<[ T | undefined, boolean ]> {
-    return function validatorMacro(t: ExecutionContext, value: T | undefined, shouldValidate: boolean): void {
-        const validationResult = validatorFunction(value)
-
-        if (shouldValidate)
-            t.deepEqual(validationResult, undefined)
-        else
-            t.deepEqual(validationResult, expectedError)
+    if (shouldValidate) {
+      assertEquals(validationResult, undefined);
+    } else {
+      assertEquals(validationResult, expectedError);
     }
+  };
 }
-

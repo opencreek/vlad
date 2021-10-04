@@ -1,4 +1,4 @@
-import { Validator, PrimitiveErrors, ObjectTopLevelError } from '../types'
+import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts";
 
 /**
  * Builds a validator function that checks if the given object value is neither `undefined` nor `null`
@@ -13,12 +13,16 @@ import { Validator, PrimitiveErrors, ObjectTopLevelError } from '../types'
  * console.assert(validator({ name: 'Kim' }) === undefined)
  * ```
  */
-export function requiredObject(message: string): Validator<object, ObjectTopLevelError<PrimitiveErrors>> {
-    return function requiredValidator(value: object | undefined): ObjectTopLevelError<PrimitiveErrors> | undefined {
-        if (value === undefined || value === null)
-            return { _self: [ message ] }
-        
-        return undefined
+export function requiredObject(
+  message: string,
+): Validator<object, ObjectTopLevelError<PrimitiveErrors>> {
+  return function requiredValidator(
+    value: object | undefined,
+  ): ObjectTopLevelError<PrimitiveErrors> | undefined {
+    if (value === undefined || value === null) {
+      return { _self: [message] };
     }
-}
 
+    return undefined;
+  };
+}

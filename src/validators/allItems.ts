@@ -1,6 +1,6 @@
-import { Validator, SubjectType } from '../types'
+import { SubjectType, Validator } from "../types.ts";
 
-export type ItemsErrors<E> = { [index: number]: E }
+export type ItemsErrors<E> = { [index: number]: E };
 
 /**
  * Builds a validator function that applies the given validator to all elements of an array
@@ -18,19 +18,25 @@ export type ItemsErrors<E> = { [index: number]: E }
  * console.assert(validator([]) === undefined)
  * ```
  */
-export function allItems<V extends Validator>(validator: V): Validator<Array<SubjectType<V>>, ItemsErrors<ReturnType<V>>> {
-    return function allItemsValidator(array: Array<SubjectType<V>> | undefined, context: object | undefined): ItemsErrors<ReturnType<V>> | undefined {
-        if (array === undefined)
-            return undefined
-
-        const errorEntries = array
-            .map((value, index) => [ index, validator(value, context) ])
-            .filter(([ _, errors ]) => errors !== undefined)
-
-        if (errorEntries.length === 0)
-            return undefined
-
-        return Object.fromEntries(errorEntries)
+export function allItems<V extends Validator>(
+  validator: V,
+): Validator<Array<SubjectType<V>>, ItemsErrors<ReturnType<V>>> {
+  return function allItemsValidator(
+    array: Array<SubjectType<V>> | undefined,
+    context: object | undefined,
+  ): ItemsErrors<ReturnType<V>> | undefined {
+    if (array === undefined) {
+      return undefined;
     }
-}
 
+    const errorEntries = array
+      .map((value, index) => [index, validator(value, context)])
+      .filter(([_, errors]) => errors !== undefined);
+
+    if (errorEntries.length === 0) {
+      return undefined;
+    }
+
+    return Object.fromEntries(errorEntries);
+  };
+}

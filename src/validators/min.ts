@@ -1,4 +1,4 @@
-import { Validator, PrimitiveErrors } from '../types'
+import { PrimitiveErrors, Validator } from "../types.ts";
 
 /**
  * Builds a validator function that checks if a number is at least as big as the given number
@@ -13,15 +13,21 @@ import { Validator, PrimitiveErrors } from '../types'
  * console.assert(validator(30) === undefined)
  * ```
  */
-export function min(minValue: number, message: string): Validator<number, PrimitiveErrors> {
-    return function minValidator(subject: number | undefined): PrimitiveErrors | undefined {
-        if (subject === undefined)
-            return undefined
-
-        if (subject >= minValue)
-            return undefined
-
-        return [ message ]
+export function min(
+  minValue: number,
+  message: string,
+): Validator<number, PrimitiveErrors> {
+  return function minValidator(
+    subject: number | undefined,
+  ): PrimitiveErrors | undefined {
+    if (subject === undefined) {
+      return undefined;
     }
-}
 
+    if (subject >= minValue) {
+      return undefined;
+    }
+
+    return [message];
+  };
+}

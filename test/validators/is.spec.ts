@@ -1,22 +1,39 @@
-import test, { Macro } from 'ava'
+import { buildValidatorTest } from "../validator-macro.ts";
+import { is } from "../../src/validators/is.ts";
 
-import buildValidatorMacro from '../validator-macro'
-import { is } from '../../src/validators/is'
+const testMessage = "Should be equal";
 
-const testMessage = 'Should be equal'
+function isTest<T>(expected: T) {
+  const validator = is(expected, testMessage);
 
-function isTest<T>(expected: T): Macro<[T, boolean]> {
-    const validator = is(expected, testMessage)
-
-    return buildValidatorMacro(validator, [ testMessage ])
+  return buildValidatorTest(validator, [testMessage]);
 }
 
-test('succeeds on equal numbers', isTest(5), 5, true)
-test('succeeds on different numbers', isTest(5), 10, false)
-test('succeeds on equal booleans', isTest(false), false, true)
-test('succeeds on different booleans', isTest(false), true, false)
-test('succeeds on equal strings', isTest('foo'), 'foo', true)
-test('succeeds on different strings', isTest('foo'), 'bar', false)
-test('fails on equal objects', isTest({ foo: 'bar' }), { foo: 'bar' }, false)
-test('fails on equal arrays', isTest([ 1, 2 ]), [ 1, 2 ], false)
+Deno.test("numbers", () => {
+  const test = isTest(5);
 
+  test(5, true);
+  test(10, false);
+});
+Deno.test("booleans", () => {
+  const test = isTest(false);
+
+  test(false, true);
+  test(true, false);
+});
+Deno.test("strings", () => {
+  const test = isTest("foo");
+
+  test("foo", true);
+  test("bar", false);
+});
+Deno.test("fails on equal objects", () => {
+  const test = isTest({ foo: "bar" });
+
+  test({ foo: "bar" }, false);
+});
+Deno.test("fails on equal arrays", () => {
+  const test = isTest([1, 2]);
+
+  test([1, 2], false);
+});

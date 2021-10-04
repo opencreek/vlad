@@ -1,4 +1,4 @@
-import { Validator, PrimitiveErrors } from '../types'
+import { PrimitiveErrors, Validator } from "../types.ts";
 
 /**
  * Builds a validator function that checks if a given value is `null` or `undefined`
@@ -14,11 +14,13 @@ import { Validator, PrimitiveErrors } from '../types'
  * ```
  */
 export function nullish(message: string): Validator<any, PrimitiveErrors> {
-    return function nullishValidator(subject: any | undefined): PrimitiveErrors | undefined {
-        if (subject === undefined || subject === null)
-            return undefined
-
-        return [ message ]
+  return function nullishValidator(
+    subject: any | undefined,
+  ): PrimitiveErrors | undefined {
+    if (subject === undefined || subject === null) {
+      return undefined;
     }
-}
 
+    return [message];
+  };
+}

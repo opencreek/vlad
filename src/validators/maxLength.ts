@@ -1,4 +1,4 @@
-import { Validator, PrimitiveErrors } from '../types'
+import { PrimitiveErrors, Validator } from "../types.ts";
 
 /**
  * Builds a validator function that checks if a string has not more than the given amount of characters
@@ -12,17 +12,23 @@ import { Validator, PrimitiveErrors } from '../types'
  * console.assert(validator('LS') === undefined)
  * ```
  */
-export function maxLength(length: number, message: string): Validator<string, PrimitiveErrors> {
-    return function maxLengthValidator(value: string | undefined): PrimitiveErrors | undefined {
-        if (value === undefined)
-            return undefined
-
-        const { length: subjectLength } = value
-
-        if (subjectLength <= length)
-            return undefined
-
-        return [ message ]
+export function maxLength(
+  length: number,
+  message: string,
+): Validator<string, PrimitiveErrors> {
+  return function maxLengthValidator(
+    value: string | undefined,
+  ): PrimitiveErrors | undefined {
+    if (value === undefined) {
+      return undefined;
     }
-}
 
+    const { length: subjectLength } = value;
+
+    if (subjectLength <= length) {
+      return undefined;
+    }
+
+    return [message];
+  };
+}
