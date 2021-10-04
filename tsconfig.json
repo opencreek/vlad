@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "declaration": true,
+  },
+  "include": [ "src/**/*.ts" ],
+  "deno2node": {
+    "vendorDir": ".deno2node/vendor/"
+  },
+}
