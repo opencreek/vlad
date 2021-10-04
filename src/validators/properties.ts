@@ -35,10 +35,7 @@ export function properties<
 >(
   validatorMap: V,
 ): Validator<PropertiesValidatorInput<V>, PropertiesValidatorResult<V>> {
-  return function propertiesValidator(
-    subject: PropertiesValidatorInput<V> | undefined,
-    context: object | undefined,
-  ): PropertiesValidatorResult<V> | undefined {
+  return function propertiesValidator(subject, context) {
     if (subject === undefined) {
       return undefined;
     }

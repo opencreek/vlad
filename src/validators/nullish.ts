@@ -13,9 +13,9 @@ import { PrimitiveErrors, Validator } from "../types.ts";
  * console.assert(validator(null) === undefined)
  * ```
  */
-export function nullish(message: string): Validator<any, PrimitiveErrors> {
+export function nullish(message: string): Validator<unknown, PrimitiveErrors> {
   return function nullishValidator(
-    subject: any | undefined,
+    subject: unknown | undefined,
   ): PrimitiveErrors | undefined {
     if (subject === undefined || subject === null) {
       return undefined;

@@ -1,6 +1,7 @@
-export type Validator<T = any, E = any> = (
+// deno-lint-ignore ban-types no-explicit-any
+export type Validator<T = any, E = any, C extends {} = {}> = (
   subject: T | undefined,
-  context?: object,
+  context?: C,
 ) => E | undefined;
 export type SubjectType<V extends Validator> = Parameters<V>[0];
 

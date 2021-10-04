@@ -1,3 +1,5 @@
+// deno-lint-ignore-file ban-types
+
 import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts";
 
 /**

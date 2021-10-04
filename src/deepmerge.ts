@@ -1,4 +1,5 @@
-// @ts-nocheck
+// @ts-nocheck Very complex types
+// todo replace with collections/deepmerge
 
 type SomeRecord = { [x: string]: unknown };
 

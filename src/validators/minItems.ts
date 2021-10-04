@@ -15,9 +15,9 @@ import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts";
 export function minItems(
   length: number,
   message: string,
-): Validator<Array<any>, ObjectTopLevelError<PrimitiveErrors>> {
+): Validator<Array<unknown>, ObjectTopLevelError<PrimitiveErrors>> {
   return function minItemsValidator(
-    value: Array<any> | undefined,
+    value: Array<unknown> | undefined,
   ): ObjectTopLevelError<PrimitiveErrors> | undefined {
     if (value === undefined) {
       return undefined;

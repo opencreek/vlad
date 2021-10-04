@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-nocheck Deepmerge magic
 
 import { SubjectType, Validator } from "../types.ts";
 import { deepmerge } from "../deepmerge.ts";

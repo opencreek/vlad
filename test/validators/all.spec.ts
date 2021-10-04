@@ -53,7 +53,6 @@ Deno.test("should correctly type check with multiple validators", () => {
   );
   const output = validator(["asdf", 3]);
   const a = output?._self;
-  const b = output?.[1];
 
   assertEquals(a, ["Must have at least 2 items"]);
 });
