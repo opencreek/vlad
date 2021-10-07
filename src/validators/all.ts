@@ -1,7 +1,7 @@
 // @ts-nocheck Deepmerge magic, will be replaced
 
 import { SubjectType, Validator } from "../types.ts";
-import { deepmerge } from "../deepmerge.ts";
+import { deepMerge } from "../deps.ts";
 
 /**
  * Builds a validator function that applies all given validators to a value, merging their results
@@ -58,7 +58,7 @@ export function all(...validators) {
             return cur;
           }
 
-          return deepmerge(acc, cur);
+          return deepMerge(acc, cur);
         },
         undefined,
       );
