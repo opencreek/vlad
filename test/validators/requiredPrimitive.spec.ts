@@ -1,23 +1,34 @@
-import test from 'ava'
+import { buildValidatorTest } from "../validator-macro.ts";
+import { requiredPrimitive } from "../../src/validators/requiredPrimitive.ts";
 
-import buildValidatorMacro from '../validator-macro'
+const testMessage = "This is required";
+const validator = requiredPrimitive(testMessage);
+const requiredTest = buildValidatorTest(validator, [testMessage]);
 
-import { requiredPrimitive } from '../../src/validators/requiredPrimitive'
-
-const testMessage = 'This is required'
-const validator = requiredPrimitive(testMessage)
-const requiredTest = buildValidatorMacro(validator, [ testMessage ])
-
-test('fails on null', requiredTest, null, false)
-test('fails on undefined', requiredTest, undefined, false)
-
-test('succeeds on empty string', requiredTest, '', true)
-test('succeeds on non-empty string', requiredTest, 'asdf', true)
-
-test('succeeds on zero', requiredTest, 0, true)
-test('succeeds on positive number', requiredTest, 12, true)
-test('succeeds on negative number', requiredTest, -23, true)
-
-test('succeeds on true', requiredTest, true, true)
-test('succeeds on false', requiredTest, false, true)
-
+Deno.test("fails on null", () => {
+  requiredTest(null, false);
+});
+Deno.test("fails on undefined", () => {
+  requiredTest(undefined, false);
+});
+Deno.test("succeeds on empty string", () => {
+  requiredTest("", true);
+});
+Deno.test("succeeds on non-empty string", () => {
+  requiredTest("asdf", true);
+});
+Deno.test("succeeds on zero", () => {
+  requiredTest(0, true);
+});
+Deno.test("succeeds on positive number", () => {
+  requiredTest(12, true);
+});
+Deno.test("succeeds on negative number", () => {
+  requiredTest(-23, true);
+});
+Deno.test("succeeds on true", () => {
+  requiredTest(true, true);
+});
+Deno.test("succeeds on false", () => {
+  requiredTest(false, true);
+});

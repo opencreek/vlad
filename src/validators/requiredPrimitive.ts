@@ -1,12 +1,12 @@
-import { Validator, PrimitiveErrors } from '../types'
+import { PrimitiveErrors, Validator } from "../types.ts";
 
 type Primitive =
-    | number
-    | boolean
-    | string
-    | symbol
-    | null
-    | undefined
+  | number
+  | boolean
+  | string
+  | symbol
+  | null
+  | undefined;
 
 /**
  * Builds a validator function that checks if the given primitive value is neither `undefined` nor `null`
@@ -21,12 +21,16 @@ type Primitive =
  * console.assert(validator('Kim') === undefined)
  * ```
  */
-export function requiredPrimitive(message: string): Validator<Primitive, PrimitiveErrors> {
-    return function requiredValidator(value: Primitive): PrimitiveErrors | undefined {
-        if (value === undefined || value === null)
-            return [ message ]
-
-        return undefined
+export function requiredPrimitive(
+  message: string,
+): Validator<Primitive, PrimitiveErrors> {
+  return function requiredValidator(
+    value: Primitive,
+  ): PrimitiveErrors | undefined {
+    if (value === undefined || value === null) {
+      return [message];
     }
-}
 
+    return undefined;
+  };
+}

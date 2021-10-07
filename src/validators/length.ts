@@ -1,4 +1,4 @@
-import { Validator, PrimitiveErrors } from '../types'
+import { PrimitiveErrors, Validator } from "../types.ts";
 
 /**
  * Builds a validator function that checks if a given string has the given length or not
@@ -12,17 +12,23 @@ import { Validator, PrimitiveErrors } from '../types'
  * console.assert(validator('USD') === undefined)
  * ```
  */
-export function length(length: number, message: string): Validator<string, PrimitiveErrors> {
-    return function lengthValidator(value: string | undefined): PrimitiveErrors | undefined {
-        if (value === undefined)
-            return undefined
-
-        const { length: subjectLength } = value
-
-        if (subjectLength === length)
-            return undefined
-
-        return [ message ]
+export function length(
+  length: number,
+  message: string,
+): Validator<string, PrimitiveErrors> {
+  return function lengthValidator(
+    value: string | undefined,
+  ): PrimitiveErrors | undefined {
+    if (value === undefined) {
+      return undefined;
     }
-}
 
+    const { length: subjectLength } = value;
+
+    if (subjectLength === length) {
+      return undefined;
+    }
+
+    return [message];
+  };
+}

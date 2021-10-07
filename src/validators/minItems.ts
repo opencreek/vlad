@@ -1,4 +1,4 @@
-import { Validator, PrimitiveErrors, ObjectTopLevelError } from '../types'
+import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts";
 
 /**
  * Builds a validator function that checks if an array has at least the given amount of elements
@@ -12,17 +12,23 @@ import { Validator, PrimitiveErrors, ObjectTopLevelError } from '../types'
  * console.assert(validator([ {}, [] ]) === undefined)
  * ```
  */
-export function minItems(length: number, message: string): Validator<Array<any>, ObjectTopLevelError<PrimitiveErrors>> {
-    return function minItemsValidator(value: Array<any> | undefined): ObjectTopLevelError<PrimitiveErrors> | undefined {
-        if (value === undefined)
-            return undefined
-
-        const { length: subjectLength } = value
-
-        if (subjectLength >= length)
-            return undefined
-
-        return { _self: [ message ] }
+export function minItems(
+  length: number,
+  message: string,
+): Validator<Array<unknown>, ObjectTopLevelError<PrimitiveErrors>> {
+  return function minItemsValidator(
+    value: Array<unknown> | undefined,
+  ): ObjectTopLevelError<PrimitiveErrors> | undefined {
+    if (value === undefined) {
+      return undefined;
     }
-}
 
+    const { length: subjectLength } = value;
+
+    if (subjectLength >= length) {
+      return undefined;
+    }
+
+    return { _self: [message] };
+  };
+}

@@ -1,47 +1,17 @@
 {
-    "name": "oc-vlad",
-    "version": "0.3.3",
-    "description": "",
-    "main": "dist/vlad.js",
-    "files": [
-        "dist"
-    ],
-    "scripts": {
-        "build": "tsc",
-        "test": "tsc && ava",
-        "prepublish": "npm run build"
-    },
-    "license": "MIT",
-    "devDependencies": {
-        "@ava/babel": "^0.2.0",
-        "@babel/cli": "^7.8.4",
-        "@babel/core": "^7.9.0",
-        "@babel/preset-env": "^7.9.5",
-        "@babel/preset-typescript": "^7.9.0",
-        "ava": "^2.4.0",
-        "eslint": "^6.8.0",
-        "eslint-config-lionc": "^1.2.0",
-        "esm": "^3.2.25",
-        "ts-node": "^8.8.2",
-        "typescript": "^3.8.3"
-    },
-    "ava": {
-        "files": [
-            "test/**/*.spec.ts"
-        ],
-        "compileEnhancements": false,
-        "extensions": [
-            "ts"
-        ],
-        "require": [
-            "ts-node/register",
-            "esm"
-        ]
-    },
-    "babel": {
-        "presets": [
-            "@babel/env",
-            "@babel/preset-typescript"
-        ]
-    }
+  "name": "@opencreek/vlad",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "version": "0.1.0",
+  "description": "Pure, functional, minimal, Typescript first validation library",
+  "main": "dist/vlad.js",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "repository": "opencreek/vlad",
+  "author": "Opencreek Technology<oss@opencreek.tech>",
+  "license": "MIT"
 }
