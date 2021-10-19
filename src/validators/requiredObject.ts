@@ -1,6 +1,7 @@
 // deno-lint-ignore-file ban-types
 
-import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts";
+import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts"
+import { object, PropertiesValidatorInput, PropertiesValidatorResult, ValidatorMap } from "./object.ts"
 
 /**
  * Builds a validator function that checks if the given object value is neither `undefined` nor `null`
@@ -15,14 +16,20 @@ import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts";
  * console.assert(validator({ name: 'Kim' }) === undefined)
  * ```
  */
-export function requiredObject(
-  message: string,
-): Validator<object, ObjectTopLevelError<PrimitiveErrors>> {
-  return function requiredValidator(value) {
-    if (value === undefined || value === null) {
-      return { _self: [message] };
-    }
+export function requiredObject<V extends ValidatorMap,
+    >(
+    message: string,
+    validatorMap?: V,
+): Validator<PropertiesValidatorInput<V>, Partial<ObjectTopLevelError<PrimitiveErrors>> & PropertiesValidatorResult<V>> {
+    const objectValidator: Validator<PropertiesValidatorInput<V>, PropertiesValidatorResult<V>> = validatorMap ? object(validatorMap) : (a: any) => undefined
+    return function requiredObjectValidator(value) {
+        if (value === undefined || value === null) {
+            return {
+                _self: [ message ],
+                ...objectValidator({}),
+            } as PropertiesValidatorResult<V> & ObjectTopLevelError<PrimitiveErrors>
+        }
 
-    return undefined;
-  };
+        return objectValidator(value)
+    }
 }

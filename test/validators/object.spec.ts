@@ -1,6 +1,6 @@
 import { requiredPrimitive } from "../../src/validators/requiredPrimitive.ts";
 import { minLength } from "../../src/validators/minLength.ts";
-import { properties } from "../../src/validators/properties.ts";
+import { object } from "../../src/validators/object.ts";
 import { assertEquals } from "../testingDeps.ts";
 
 type User = {
@@ -8,7 +8,7 @@ type User = {
   name?: string;
 };
 
-const validator = properties({
+const validator = object({
   age: requiredPrimitive("Age is required"),
   name: minLength(4, "Name must be at least 4 characters long"),
 });
