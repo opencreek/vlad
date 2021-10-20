@@ -21,7 +21,12 @@ import {
  */
 export function requiredObject(
   message: string,
-): Validator<object, ObjectTopLevelError<PrimitiveErrors>>;
+): Validator<
+  // we actually want all non-primitives here
+  // deno-lint-ignore ban-types
+  object,
+  ObjectTopLevelError<PrimitiveErrors>
+>;
 export function requiredObject<V extends ValidatorMap>(
   message: string,
   validatorMap: V,
