@@ -7,7 +7,7 @@
     "outDir": "./dist",
     "declaration": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "polyfill/**/*.ts"],
   "deno2node": {
     "vendorDir": ".deno2node/vendor/"
   }
