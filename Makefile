@@ -3,7 +3,7 @@
 check: check-format lint test
 
 test:
-	deno test test/**/*.spec.ts
+	deno test
 
 lint:
 	deno lint --ignore=dist
