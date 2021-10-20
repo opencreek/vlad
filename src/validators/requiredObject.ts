@@ -19,12 +19,26 @@ import {
  * console.assert(validator({ name: 'Kim' }) === undefined)
  * ```
  */
+export function requiredObject(
+  message: string,
+): Validator<object, ObjectTopLevelError<PrimitiveErrors>>;
+export function requiredObject<V extends ValidatorMap>(
+  message: string,
+  validatorMap: V,
+): Validator<
+  PropertiesValidatorInput<V>,
+  | ObjectTopLevelError<PrimitiveErrors>
+  | PropertiesValidatorResult<V>
+  | ObjectTopLevelError<PrimitiveErrors> & PropertiesValidatorResult<V>
+>;
 export function requiredObject<V extends ValidatorMap>(
   message: string,
   validatorMap?: V,
 ): Validator<
   PropertiesValidatorInput<V>,
-  Partial<ObjectTopLevelError<PrimitiveErrors>> & PropertiesValidatorResult<V>
+  | ObjectTopLevelError<PrimitiveErrors>
+  | PropertiesValidatorResult<V>
+  | ObjectTopLevelError<PrimitiveErrors> & PropertiesValidatorResult<V>
 > {
   const objectValidator: Validator<
     PropertiesValidatorInput<V>,
@@ -35,7 +49,7 @@ export function requiredObject<V extends ValidatorMap>(
       return {
         _self: [message],
         ...objectValidator({}),
-      } as PropertiesValidatorResult<V> & ObjectTopLevelError<PrimitiveErrors>;
+      };
     }
 
     return objectValidator(value);
