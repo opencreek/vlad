@@ -1,6 +1,6 @@
 import { Validator } from "../types.ts";
 
-type ValidatorMap = { [property: string]: Validator };
+export type ValidatorMap = { [property: string]: Validator };
 export type PropertiesValidatorInput<V extends ValidatorMap> = {
   [property in keyof V]?: Parameters<V[property]>[0];
 };
@@ -15,7 +15,7 @@ export type PropertiesValidatorResult<V extends ValidatorMap> = {
  * Example:
  *
  * ```typescript
- * const validator = properties({
+ * const validator = object({
  *     age: min(12, 'Age must be at least 12 to ride the rollercoaster'),
  *     name: requiredPrimitive('Must submit a name'),
  * })
@@ -30,12 +30,12 @@ export type PropertiesValidatorResult<V extends ValidatorMap> = {
  * console.assert(validator({ age: 15, name: 'Kim' }) === undefined)
  * ```
  */
-export function properties<
+export function object<
   V extends ValidatorMap,
 >(
   validatorMap: V,
 ): Validator<PropertiesValidatorInput<V>, PropertiesValidatorResult<V>> {
-  return function propertiesValidator(subject, context) {
+  return function objectValidator(subject, context) {
     if (subject === undefined) {
       return undefined;
     }
