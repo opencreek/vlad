@@ -29,7 +29,8 @@ jobs:
       - uses: denoland/setup-deno@v1
       - uses: actions/setup-node@main
       - run: git fetch --tags
-      - run:  make build
+      - run: make
+      - run: make build
       - run: npx auto shipit
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
