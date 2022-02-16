@@ -8,6 +8,7 @@ export * from "./validators/minItems.ts";
 export * from "./validators/minLength.ts";
 export * from "./validators/nullish.ts";
 export * from "./validators/object.ts";
+export * from "./validators/properties.ts";
 export * from "./validators/requiredObject.ts";
 export * from "./validators/requiredPrimitive.ts";
 
