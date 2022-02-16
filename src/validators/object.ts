@@ -2,7 +2,7 @@ import { Validator } from "../types.ts";
 
 export type ValidatorMap = { [property: string]: Validator };
 export type PropertiesValidatorInput<V extends ValidatorMap> = {
-  [property in keyof V]?: Parameters<V[property]>[0];
+  readonly [property in keyof V]?: Parameters<V[property]>[0];
 };
 export type PropertiesValidatorResult<V extends ValidatorMap> = {
   [property in keyof V]?: ReturnType<V[property]>;

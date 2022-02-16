@@ -20,7 +20,7 @@ export type ItemsErrors<E> = { [index: number]: E };
  */
 export function allItems<V extends Validator>(
   validator: V,
-): Validator<Array<SubjectType<V>>, ItemsErrors<ReturnType<V>>> {
+): Validator<ReadonlyArray<SubjectType<V>>, ItemsErrors<ReturnType<V>>> {
   return function allItemsValidator(array, context) {
     if (array === undefined) {
       return undefined;

@@ -1,0 +1,34 @@
+name: Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  check-version-increase:
+    name: Check version tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-node@main
+      - run: npx auto pr-check --url https://github.com/$GITHUB_REPOSITORY
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-canary:
+    name: Publish a Canary version
+    needs: check-version-increase
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    steps:
+      - uses: actions/checkout@main
+      - uses: denoland/setup-deno@v1
+      - uses: actions/setup-node@main
+      - run: git fetch --tags
+      - run:  make build
+      - run: npx auto shipit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
