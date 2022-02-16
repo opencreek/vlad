@@ -3,13 +3,6 @@ name: On Push
 on: [push]
 
 jobs:
-  audit:
-    name: Audit
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - uses: actions/setup-node@main
-      - run: npm audit
   lint:
     name: Lint
     runs-on: ubuntu-latest
