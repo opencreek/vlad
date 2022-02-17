@@ -59,3 +59,8 @@ export function object<
     return Object.fromEntries(errorEntries) as PropertiesValidatorResult<V>;
   };
 }
+
+/**
+ * @deprecated Use `object` instead.
+ */
+export const properties = object;
