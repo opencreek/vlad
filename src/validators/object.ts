@@ -1,9 +1,11 @@
 import { Validator } from "../types.ts";
 
 export type ValidatorMap = { [property: string]: Validator };
-export type PropertiesValidatorInput<V extends ValidatorMap> = {
-  [property in keyof V]?: Parameters<V[property]>[0];
-};
+export type PropertiesValidatorInput<V extends ValidatorMap> = Readonly<
+  {
+    readonly [property in keyof V]?: Parameters<V[property]>[0];
+  }
+>;
 export type PropertiesValidatorResult<V extends ValidatorMap> = {
   [property in keyof V]?: ReturnType<V[property]>;
 };
@@ -57,3 +59,8 @@ export function object<
     return Object.fromEntries(errorEntries) as PropertiesValidatorResult<V>;
   };
 }
+
+/**
+ * @deprecated Use `object` instead.
+ */
+export const properties = object;

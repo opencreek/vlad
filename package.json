@@ -6,7 +6,7 @@
   ],
   "version": "0.2.0",
   "description": "Pure, functional, minimal, Typescript first validation library",
-  "main": "dist/vlad.js",
+  "main": "dist/src/vlad.js",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"

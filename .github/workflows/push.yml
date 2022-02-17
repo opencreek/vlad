@@ -1,0 +1,37 @@
+name: On Push
+
+on: [push]
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: denoland/setup-deno@v1
+      - run: make check-format
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: denoland/setup-deno@v1
+      - run: make test
+
+  publish-gpr:
+    name: Publish Version
+    needs: [test, lint]
+    runs-on: ubuntu-latest
+    if: "contains(github.ref, 'main') && !contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    steps:
+      - uses: actions/checkout@main
+      - uses: denoland/setup-deno@v1
+      - uses: actions/setup-node@main
+      - run: git fetch --tags
+      - run: make
+      - run: make build
+      - run: npx auto shipit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

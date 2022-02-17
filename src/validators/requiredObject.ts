@@ -53,7 +53,7 @@ export function requiredObject<V extends ValidatorMap>(
     if (value === undefined || value === null) {
       return {
         _self: [message],
-        ...objectValidator({}),
+        ...objectValidator({} as unknown as typeof value),
       };
     }
 
