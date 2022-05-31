@@ -8,13 +8,13 @@ import { PrimitiveErrors, Validator } from "../types.ts";
  * ```typescript
  * const validator = max(99, 'Age must be at most 99')
  *
- * console.assert(validator(100) === [ 'Age must be at least 21' ])
+ * console.assert(validator(100) === [ 'Age must be at most 99' ])
  * console.assert(validator(21) === undefined)
  * console.assert(validator(30) === undefined)
  * ```
  */
 export function max(
-  minValue: number,
+  maxValue: number,
   message: string,
 ): Validator<number, PrimitiveErrors> {
   return function maxValidator(
@@ -24,7 +24,7 @@ export function max(
       return undefined;
     }
 
-    if (subject <= minValue) {
+    if (subject <= maxValue) {
       return undefined;
     }
 
