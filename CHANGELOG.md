@@ -2,7 +2,8 @@
 
 #### 🚀 Enhancement
 
-- :bug: Fix CI [#9](https://github.com/opencreek/vlad/pull/9) ([@reckter](https://github.com/reckter))
+- :bug: Fix CI [#9](https://github.com/opencreek/vlad/pull/9)
+  ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 
