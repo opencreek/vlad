@@ -2,7 +2,8 @@
 
 #### 🚀 Enhancement
 
-- :sparkles: Add max validator [#10](https://github.com/opencreek/vlad/pull/10) ([@reckter](https://github.com/reckter))
+- :sparkles: Add max validator [#10](https://github.com/opencreek/vlad/pull/10)
+  ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 
