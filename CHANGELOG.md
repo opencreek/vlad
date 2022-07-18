@@ -1,3 +1,15 @@
+# v0.4.1 (Mon Jul 18 2022)
+
+#### 🐛 Bug Fix
+
+- Add top level export for min & max [#11](https://github.com/opencreek/vlad/pull/11) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.4.0 (Tue May 31 2022)
 
 #### 🚀 Enhancement
