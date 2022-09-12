@@ -2,7 +2,9 @@
 
 #### 🐛 Bug Fix
 
-- Add top level export for min & max [#11](https://github.com/opencreek/vlad/pull/11) ([@reckter](https://github.com/reckter))
+- Add top level export for min & max
+  [#11](https://github.com/opencreek/vlad/pull/11)
+  ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 

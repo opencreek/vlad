@@ -12,5 +12,6 @@ export * from "./validators/nullish.ts";
 export * from "./validators/object.ts";
 export * from "./validators/requiredObject.ts";
 export * from "./validators/requiredPrimitive.ts";
+export * from "./validators/some.ts";
 
 export * from "./types.ts";
