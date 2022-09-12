@@ -1,3 +1,15 @@
+# v0.5.0 (Mon Sep 12 2022)
+
+#### 🚀 Enhancement
+
+- :sparkles: Add someOf validator [#12](https://github.com/opencreek/vlad/pull/12) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.4.1 (Mon Jul 18 2022)
 
 #### 🐛 Bug Fix
