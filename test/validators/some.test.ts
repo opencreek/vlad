@@ -33,7 +33,7 @@ Deno.test("should correctly type check with multiple validators", () => {
 
 Deno.test("should validate, if at least one of the validators passes", () => {
   const validator = some(
-    minItems(3, "Must have at least 2 items"),
+    minItems(3, "Must have at least 3 items"),
     maxItems(2, "Must have a maximum of 2 items"),
   );
   const output = validator(["asdf", 3]);
