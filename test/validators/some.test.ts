@@ -1,9 +1,9 @@
-import { someOf } from "../../src/validators/someOf.ts";
+import { some } from "../../src/validators/some.ts";
 import { is, maxItems, minItems } from "../../src/vlad.ts";
 import { assertEquals } from "../testingDeps.ts";
 
 Deno.test("should not change the result of a single is validator", () => {
-  const validator = someOf(
+  const validator = some(
     is(false, "Should be false"),
   );
   const output = validator(false);
@@ -12,7 +12,7 @@ Deno.test("should not change the result of a single is validator", () => {
 });
 
 Deno.test("should not change the result of a single min validator", () => {
-  const validator = someOf(
+  const validator = some(
     minItems(5, "Should have at least 5 items"),
   );
   const output = validator([1]);
@@ -21,7 +21,7 @@ Deno.test("should not change the result of a single min validator", () => {
 });
 
 Deno.test("should correctly type check with multiple validators", () => {
-  const validator = someOf(
+  const validator = some(
     minItems(3, "Must have at least 2 items"),
     minItems(5, "Must have at least 5 items"),
   );
@@ -32,7 +32,7 @@ Deno.test("should correctly type check with multiple validators", () => {
 });
 
 Deno.test("should validate, if at least one of the validators passes", () => {
-  const validator = someOf(
+  const validator = some(
     minItems(3, "Must have at least 2 items"),
     maxItems(2, "Must have a maximum of 2 items"),
   );
