@@ -32,9 +32,7 @@ export type PropertiesValidatorResult<V extends ValidatorMap> = {
  * console.assert(validator({ age: 15, name: 'Kim' }) === undefined)
  * ```
  */
-export function object<
-  V extends ValidatorMap,
->(
+export function object<V extends ValidatorMap>(
   validatorMap: V,
 ): Validator<PropertiesValidatorInput<V>, PropertiesValidatorResult<V>> {
   return function objectValidator(subject, context) {
@@ -44,12 +42,10 @@ export function object<
 
     const errorEntries = Object
       .keys(validatorMap)
-      .map((key) =>
-        [
-          key,
-          validatorMap[key](subject[key], context),
-        ] as const
-      )
+      .map((key) => ([
+        key,
+        validatorMap[key](subject[key], context),
+      ] as const))
       .filter(([_, errors]) => errors !== undefined);
 
     if (errorEntries.length === 0) {
