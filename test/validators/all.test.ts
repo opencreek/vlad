@@ -1,4 +1,5 @@
 import { all } from "../../src/validators/all.ts";
+import { object } from "../../src/validators/object.ts";
 import {
   allItems,
   is,
@@ -55,4 +56,16 @@ Deno.test("should correctly type check with multiple validators", () => {
   const a = output?._self;
 
   assertEquals(a, ["Must have at least 2 items"]);
+});
+
+Deno.test("should merge complicated errors correctly", () => {
+  const validator = all(
+    requiredPrimitive("date required"),
+    (value: number) => {
+      return ["other date error"];
+    },
+  );
+
+  const output = validator(undefined);
+  assertEquals(output, ["date required", "other date error"]);
 });

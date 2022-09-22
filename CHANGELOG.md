@@ -2,7 +2,9 @@
 
 #### 🚀 Enhancement
 
-- :sparkles: Add someOf validator [#12](https://github.com/opencreek/vlad/pull/12) ([@reckter](https://github.com/reckter))
+- :sparkles: Add someOf validator
+  [#12](https://github.com/opencreek/vlad/pull/12)
+  ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 

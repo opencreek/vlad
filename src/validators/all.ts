@@ -58,6 +58,10 @@ export function all(...validators) {
             return cur;
           }
 
+          if (Array.isArray(acc) && Array.isArray(cur)) {
+            return [...acc, ...cur];
+          }
+
           return deepMerge(acc, cur);
         },
         undefined,
