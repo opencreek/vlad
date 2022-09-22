@@ -1,6 +1,6 @@
-import { SubjectType, Validator } from "../types.ts";
+import { Errors, SubjectType, Validator } from "../types.ts";
 
-export type ItemsErrors<E> = { [index: number]: E };
+export type ItemsErrors<E extends Errors> = { [index: number]: E };
 
 /**
  * Builds a validator function that applies the given validator to all elements of an array

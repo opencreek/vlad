@@ -1,7 +1,7 @@
-import { Validator } from "../src/types.ts";
+import { Errors, Validator } from "../src/types.ts";
 import { assertEquals } from "./testingDeps.ts";
 
-export function buildValidatorTest<T, E>(
+export function buildValidatorTest<T, E extends Errors>(
   validatorFunction: Validator<T, E>,
   expectedError: E,
 ): (value: T | undefined, shouldValidate: boolean) => void {

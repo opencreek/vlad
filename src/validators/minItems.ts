@@ -1,4 +1,4 @@
-import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts";
+import { SelfErrors, Validator } from "../types.ts";
 
 /**
  * Builds a validator function that checks if an array has at least the given amount of elements
@@ -12,13 +12,13 @@ import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts";
  * console.assert(validator([ {}, [] ]) === undefined)
  * ```
  */
-export function minItems(
+export function minItems<E>(
   length: number,
-  message: string,
-): Validator<ReadonlyArray<unknown>, ObjectTopLevelError<PrimitiveErrors>> {
+  message: E,
+): Validator<ReadonlyArray<unknown>, SelfErrors<E>> {
   return function minItemsValidator(
     value: ReadonlyArray<unknown> | undefined,
-  ): ObjectTopLevelError<PrimitiveErrors> | undefined {
+  ): SelfErrors<E> | undefined {
     if (value === undefined) {
       return undefined;
     }

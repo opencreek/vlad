@@ -1,10 +1,17 @@
-import { all } from "../../src/validators/all.ts";
+import {
+  type PrimitiveErrors,
+  SelfErrors,
+  type Validator,
+} from "../../src/types.ts";
+import { all, type JoinedErrors } from "../../src/validators/all.ts";
 import {
   allItems,
   is,
+  ItemsErrors,
   maxItems,
   minItems,
   requiredPrimitive,
+  SubjectType,
 } from "../../src/vlad.ts";
 import { min } from "../../src/validators/min.ts";
 import { assertEquals } from "../testingDeps.ts";
@@ -47,10 +54,17 @@ Deno.test("should merge errors for two top level object errors", () => {
 });
 
 Deno.test("should correctly type check with multiple validators", () => {
-  const validator = all(
-    minItems(3, "Must have at least 2 items"),
-    allItems(requiredPrimitive("should be there")),
-  );
+  const min = minItems(3, "Must have at least 2 items");
+  const it = allItems(requiredPrimitive("should be there"));
+  type T = ReturnType<
+    Validator<
+      Partial<SubjectType<typeof min>> & Partial<SubjectType<typeof it>>,
+      JoinedErrors<ReturnType<typeof min>, ReturnType<typeof it>>
+    >
+  >;
+
+  const validator = all(min, it);
+
   const output = validator(["asdf", 3]);
   const a = output?._self;
 

@@ -1,14 +1,25 @@
-import { Validator } from "../types.ts";
+import { Errors, Validator } from "../types.ts";
 
-export type ValidatorMap = { [property: string]: Validator };
-export type PropertiesValidatorInput<V extends ValidatorMap> = Readonly<
-  {
-    readonly [property in keyof V]?: Parameters<V[property]>[0];
-  }
->;
-export type PropertiesValidatorResult<V extends ValidatorMap> = {
-  [property in keyof V]?: ReturnType<V[property]>;
+export type ObjectValidators<
+  V extends Validator<any, Errors> = Validator<any, Errors>,
+> = {
+  [property: string]: V;
 };
+
+export type ObjectValidatorSubject<V extends ObjectValidators> =
+  | {
+    [property in keyof V]?: V[property] extends Validator<infer S, Errors>
+      ? S | undefined
+      : never;
+  }
+  | undefined;
+
+export type ObjectValidatorResult<V extends ObjectValidators> =
+  | {
+    [property in keyof V]?: V[property] extends Validator<any, infer E> ? E
+      : never;
+  }
+  | undefined;
 
 /**
  * Builds a validator function that applies the given validator map to the properties
@@ -33,10 +44,10 @@ export type PropertiesValidatorResult<V extends ValidatorMap> = {
  * ```
  */
 export function object<
-  V extends ValidatorMap,
+  V extends ObjectValidators,
 >(
   validatorMap: V,
-): Validator<PropertiesValidatorInput<V>, PropertiesValidatorResult<V>> {
+): Validator<ObjectValidatorSubject<V>, ObjectValidatorResult<V>> {
   return function objectValidator(subject, context) {
     if (subject === undefined) {
       return undefined;
@@ -56,7 +67,7 @@ export function object<
       return undefined;
     }
 
-    return Object.fromEntries(errorEntries) as PropertiesValidatorResult<V>;
+    return Object.fromEntries(errorEntries) as ObjectValidatorResult<V>;
   };
 }
 

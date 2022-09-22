@@ -1,9 +1,9 @@
-import { ObjectTopLevelError, PrimitiveErrors, Validator } from "../types.ts";
+import { SelfErrors, Validator } from "../types.ts";
 import {
   object,
-  PropertiesValidatorInput,
-  PropertiesValidatorResult,
-  ValidatorMap,
+  ObjectValidatorResult,
+  ObjectValidators,
+  ObjectValidatorSubject,
 } from "./object.ts";
 
 /**
@@ -19,41 +19,41 @@ import {
  * console.assert(validator({ name: 'Kim' }) === undefined)
  * ```
  */
-export function requiredObject(
-  message: string,
+export function requiredObject<E>(
+  message: E,
 ): Validator<
   // we actually want all non-primitives here
   // deno-lint-ignore ban-types
   object,
-  ObjectTopLevelError<PrimitiveErrors>
+  SelfErrors<E>
 >;
-export function requiredObject<V extends ValidatorMap>(
-  message: string,
+export function requiredObject<V extends ObjectValidators, E>(
+  message: E,
   validatorMap: V,
 ): Validator<
-  PropertiesValidatorInput<V>,
-  | ObjectTopLevelError<PrimitiveErrors>
-  | PropertiesValidatorResult<V>
-  | ObjectTopLevelError<PrimitiveErrors> & PropertiesValidatorResult<V>
+  ObjectValidatorSubject<V>,
+  | SelfErrors<E>
+  | ObjectValidatorResult<V>
+  | SelfErrors<E> & ObjectValidatorResult<V>
 >;
-export function requiredObject<V extends ValidatorMap>(
-  message: string,
+export function requiredObject<V extends ObjectValidators, E>(
+  message: E,
   validatorMap?: V,
 ): Validator<
-  PropertiesValidatorInput<V>,
-  | ObjectTopLevelError<PrimitiveErrors>
-  | PropertiesValidatorResult<V>
-  | ObjectTopLevelError<PrimitiveErrors> & PropertiesValidatorResult<V>
+  ObjectValidatorSubject<V>,
+  | SelfErrors<E>
+  | ObjectValidatorResult<V>
+  | SelfErrors<E> & ObjectValidatorResult<V>
 > {
   const objectValidator: Validator<
-    PropertiesValidatorInput<V>,
-    PropertiesValidatorResult<V>
+    ObjectValidatorSubject<V>,
+    ObjectValidatorResult<V>
   > = validatorMap ? object(validatorMap) : () => undefined;
   return function requiredObjectValidator(value) {
     if (value === undefined || value === null) {
       return {
         _self: [message],
-        ...objectValidator({} as unknown as typeof value),
+        ...objectValidator({}),
       };
     }
 

@@ -21,12 +21,12 @@ type Primitive =
  * console.assert(validator('Kim') === undefined)
  * ```
  */
-export function requiredPrimitive(
-  message: string,
-): Validator<Primitive, PrimitiveErrors> {
+export function requiredPrimitive<E>(
+  message: E,
+): Validator<Primitive, PrimitiveErrors<E>> {
   return function requiredValidator(
     value: Primitive,
-  ): PrimitiveErrors | undefined {
+  ): PrimitiveErrors<E> {
     if (value === undefined || value === null) {
       return [message];
     }
