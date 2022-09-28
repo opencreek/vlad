@@ -7,16 +7,25 @@ import {
   Validator,
 } from "../types.ts";
 
+// deno-fmt-ignore
 export type JoinedErrors<E1 extends Errors, E2 extends Errors> =
-  [E1, E2] extends [PrimitiveErrors<infer A>, PrimitiveErrors<infer B>]
-    ? PrimitiveErrors<A | B>
-    : [E1, E2] extends [CompositeErrors, CompositeErrors]
-      ? MergedCompositeErrors<E1, E2>
-    : [E1, E2] extends [CompositeErrors, PrimitiveErrors<infer E>]
-      ? MergedCompositeErrors<E1, SelfErrors<E>>
-    : [E1, E2] extends [PrimitiveErrors<infer E>, CompositeErrors]
-      ? MergedCompositeErrors<SelfErrors<E>, E2>
-    : never;
+    E1 extends PrimitiveErrors<infer L1>
+        ? E2 extends PrimitiveErrors<infer L2>
+            ? PrimitiveErrors<L1 | L2>
+        : E2 extends CompositeErrors
+            ? MergedCompositeErrors<SelfErrors<L1>, E2>
+        : E2 extends undefined
+            ? E1
+        : never
+    : E1 extends CompositeErrors
+        ? E2 extends PrimitiveErrors<infer L2>
+            ? MergedCompositeErrors<E1, SelfErrors<L2>>
+        : E2 extends CompositeErrors
+            ? MergedCompositeErrors<E1, E2>
+        : E1
+    : E1 extends undefined
+        ? E2
+    : never
 
 type MergedCompositeErrors<
   E1 extends CompositeErrors,
@@ -37,15 +46,17 @@ type MergedCompositeErrors<
     >;
   };
 
-function joinErrors<E1 extends Errors, E2 extends Errors>(
+export function joinErrors<E1 extends Errors, E2 extends Errors>(
   a: E1,
   b: E1,
 ): JoinedErrors<E1, E2> {
   if (a === undefined) {
+    // @ts-ignore join magic
     return b;
   }
 
   if (b === undefined) {
+    // @ts-ignore join magic
     return a;
   }
 
@@ -53,31 +64,36 @@ function joinErrors<E1 extends Errors, E2 extends Errors>(
   const bIsPrimitive = Array.isArray(b);
 
   if (aIsPrimitive && bIsPrimitive) {
+    // @ts-ignore join magic
     return [...a, ...b];
   }
 
   const left = aIsPrimitive ? { _self: a } : a;
   const right = bIsPrimitive ? { _self: b } : b;
 
+  // @ts-ignore join magic
   return joinCompositeErrors(left, right);
 }
 
-function joinCompositeErrors<
-  E1 extends CompositeErrors,
-  E2 extends CompositeErrors,
+export function joinCompositeErrors<
+  E1 extends NonNullable<CompositeErrors>,
+  E2 extends NonNullable<CompositeErrors>,
 >(a: E1, b: E2): MergedCompositeErrors<E1, E2> {
-  const ret = {};
+  const ret: MergedCompositeErrors<E1, E2> = {};
 
   for (const prop in a) {
     if (!(prop in b)) {
+      // @ts-ignore join magic
       ret[prop] = a[prop];
     }
 
+    // @ts-ignore join magic
     ret[prop] = joinErrors(a[prop], b[prop]);
   }
 
   for (const prop in b) {
     if (!(prop in a)) {
+      // @ts-ignore join magic
       ret[prop] = b[prop];
     }
   }
@@ -129,7 +145,9 @@ export function all<V1 extends Validator, V2 extends Validator>(validator1: V1, 
 //// deno-fmt-ignore
 //export function all<V1 extends Validator, V2 extends Validator, V3 extends Validator, V4 extends Validator, V5 extends Validator, V6 extends Validator, V7 extends Validator, V8 extends Validator, V9 extends Validator, V10 extends Validator>(validator1: V1, validator2: V2, validator3: V3, validator4: V4, validator5: V5, validator6: V6, validator7: V7, validator8: V8, validator9: V9, validator10: V10): Validator<Partial<SubjectType<V1>> & Partial<SubjectType<V2>> & Partial<SubjectType<V3>> & Partial<SubjectType<V4>> & Partial<SubjectType<V5>> & Partial<SubjectType<V6>> & Partial<SubjectType<V7>> & Partial<SubjectType<V8>> & Partial<SubjectType<V9>> & Partial<SubjectType<V10>>, Partial<ReturnType<V1>> & Partial<ReturnType<V2>> & Partial<ReturnType<V3>> & Partial<ReturnType<V4>> & Partial<ReturnType<V5>> & Partial<ReturnType<V6>> & Partial<ReturnType<V7>> & Partial<ReturnType<V8>> & Partial<ReturnType<V9>> & Partial<ReturnType<V10>>>
 
+// @ts-ignore js impl
 export function all(...validators) {
+  // @ts-ignore js impl
   return function allValidator(subject, context) {
     return validators
       .map(it => it(subject, context))

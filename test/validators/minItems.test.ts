@@ -3,7 +3,7 @@ import { minItems } from "../../src/validators/minItems.ts";
 
 const testMessage = "Not enough items";
 const validator = minItems(2, testMessage);
-const minItemsTest = buildValidatorTest(validator, { _self: [testMessage] });
+const minItemsTest = buildValidatorTest(validator, [testMessage]);
 
 Deno.test("fails on empty array", () => {
   minItemsTest([], false);

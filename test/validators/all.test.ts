@@ -1,17 +1,10 @@
-import {
-  type PrimitiveErrors,
-  SelfErrors,
-  type Validator,
-} from "../../src/types.ts";
-import { all, type JoinedErrors } from "../../src/validators/all.ts";
+import { all } from "../../src/validators/all.ts";
 import {
   allItems,
   is,
-  ItemsErrors,
   maxItems,
   minItems,
   requiredPrimitive,
-  SubjectType,
 } from "../../src/vlad.ts";
 import { min } from "../../src/validators/min.ts";
 import { assertEquals } from "../testingDeps.ts";
@@ -30,7 +23,7 @@ Deno.test("should not change the result of a single min validator", () => {
   );
   const output = validator([1]);
 
-  assertEquals(output, { _self: ["Should have at least 5 items"] });
+  assertEquals(output, ["Should have at least 5 items"]);
 });
 Deno.test("should merge errors for two primitive validators", () => {
   const validator = all(
@@ -54,19 +47,27 @@ Deno.test("should merge errors for two top level object errors", () => {
 });
 
 Deno.test("should correctly type check with multiple validators", () => {
-  const min = minItems(3, "Must have at least 2 items");
-  const it = allItems(requiredPrimitive("should be there"));
-  type T = ReturnType<
-    Validator<
-      Partial<SubjectType<typeof min>> & Partial<SubjectType<typeof it>>,
-      JoinedErrors<ReturnType<typeof min>, ReturnType<typeof it>>
-    >
-  >;
-
-  const validator = all(min, it);
+  const validator = all(
+    minItems(3, "Must have at least 2 items"),
+    allItems(requiredPrimitive("should be there")),
+  );
 
   const output = validator(["asdf", 3]);
-  const a = output?._self;
 
-  assertEquals(a, ["Must have at least 2 items"]);
+  assertEquals(output, ["Must have at least 2 items"]);
+});
+
+Deno.test("should correctly merge different error types", () => {
+  const minMessage = "Must have at least 4 items";
+  const itMessage = "should be there";
+  const min = minItems(4, minMessage);
+  const it = allItems(requiredPrimitive(itMessage));
+  const validator = all(min, it);
+
+  const subject = ["asdf", 3, undefined];
+  assertEquals(min(subject), [minMessage]);
+  assertEquals(it(subject), { 2: [itMessage] });
+  const output = validator(subject);
+
+  assertEquals(output, { _self: [minMessage], 2: [itMessage] });
 });
