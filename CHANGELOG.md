@@ -1,3 +1,15 @@
+# v0.5.2 (Wed Sep 28 2022)
+
+#### 🐛 Bug Fix
+
+- Fix all validator on primitive errors [#14](https://github.com/opencreek/vlad/pull/14) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.5.1 (Thu Sep 22 2022)
 
 #### 🐛 Bug Fix
