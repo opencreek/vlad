@@ -16,9 +16,11 @@ type Validator<T> = (value?: T) => ValidationError | undefined
 ```
 
 ### 2. ValidationError
+
 A validation error is a plain object with at least one of two properties:
-    - `err`, containing an array of error messages regarding the value that was passed
-    - `sub` containing an object mapping properties or indices of the value to validation errors describing errors on that property or index
+
+- `err`, containing an array of error messages regarding the value that was passed
+- `sub` containing an object mapping properties or indices of the value to validation errors describing errors on that property or index
 
 To put it in typescript terms:
 ```ts
