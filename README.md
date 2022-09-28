@@ -5,6 +5,27 @@ Vlad is a very simple data validation standard and utility library
 Vlad establishes (type-)definitions of what a validator is and what a validation error looks like. It also offers utilities functions to make data validation
 following those standards very easy to write, compose, reuse and consume.
 
+- Core Concepts
+    - Validator
+    - ValidationError
+    - Examples
+- Composition
+    - object
+    - allItems
+    - all
+    - Composition Example
+- Utilities
+    - validator
+    - mergeErrors
+    - err
+    - sub
+- Validators
+    - required
+    - minLength
+    - min / max
+    - minItems / maxItems
+
+
 ## Core Concepts
 
 Vlad establishes two (type-)definitions
@@ -100,10 +121,10 @@ A validation error indicating that an array needs at least three elements and th
 Vlad is not just a set of types, it offers utilities to compose validators following those types.
 
 Usually when validating data (e.g. in a form, an API endpoint, a data pipeline...), you need to validate a data structure that is nested
-multiple levels deep, but the actual validation on the "leaf" values are often the same.
+multiple levels deep, but the actual validations on the "leaf" values are often the same.
 
 To make writing validatos for such structures fast and readable while allowing you to reuse your validators, vlad offers composition functions to
-build validators for objects and arrays out of other validators.
+build "bigger" validators out of "smaller" validators.
 
 ### `object`
 
@@ -261,3 +282,102 @@ will return
     err: [ "Must be even", "Must be positive" ]
 }
 ```
+
+### Composition example
+
+With those three composition utilities, we can already write validators for a lot of cases. Lets build
+an example, assuming the `even`, `positive` and `required` validators from above:
+
+```ts
+type InsectNest = {
+    name?: string
+    insects?: {
+        age?: number
+        eyes?: number
+    }[]
+}
+
+const validateInsectNest = object({
+    name: required,
+    insects: all(
+        required,
+        object({
+            age: all(required, positive),
+            eyes: all(positive, even),
+        }),
+    ),
+})
+```
+
+## Utilities
+
+To make writing validation functions even faster, vlad offers some utilities.
+
+**Please note that usage of those is absolutely optional, you have already
+learnt everything you need to know on how to write and consme validators.**
+
+### `validator`
+
+`validator` expects a function and returns a validator that is that function but with 
+sanitized return types. The sanitization works as follows:
+
+- `false` and `null` will be converted to `undefined`
+- arrays will be wrapped in a `{ err: array }` object
+- everything else will be considered a single error message and will be wrapped in an `{ err: [ message ] }` object
+
+This allows you to wrote very short validators, e.g.:
+
+```ts
+const positive = validator((value?: number) => value < 0 && "Must be positive")
+```
+
+Please note that this utility is not required to write validators at all - it just allows for some
+more flexible return types for convenience when needed.
+
+### `err`
+
+`err` will wrap a given `message` into a `{ err: [ message ] }` object. It really just saves some
+keystrokes and might increase readability of your validator:
+
+```ts
+const required = (value?: unknown) => {
+    if (value == null)
+        return err("Is required")
+}
+```
+
+Calling `required(null)` will return `{ err: [ "Is required" ] }`
+
+### `sub`
+
+`sub` will wrap a given `message` into a `{ sub: { a: { sub: { b: [ message ] } } } }` object using a given `path` string (`"a.b"` in this example). It really just saves some
+keystrokes and might increase readability of your validator:
+
+```ts
+type Thing = {
+    child?: {
+        name?: string
+    }
+}
+
+const hasChildName = (value?: Thing) => {
+    if (value?.child?.name == null)
+        return sub<Thing>("child.name", "Is required")
+}
+```
+
+*Note that in Typescript, you need to pass the type of yout value to `sub` so that it can make sure that your `path` is valid.*
+
+Calling `hasChildName(null)` will return `{ sub: { child: { sub: { name: { err: [ "Is required" ] } } } } }`
+
+### `mergeErrors`
+
+`mergeErrors` will merge two given validator results and merge them into one (this is actually what happens under the hood
+in `all`). This means it will concatenate `err` arrays on the same level and otherwise deepmerge the obects, ignoring
+`undefined`s.
+
+Examples:
+
+- Calling `hasChildName(null)` will return `{ sub: { child: { sub: { name: { err: [ "Is required" ] } } } } }`
+- Calling `hasChildName(null)` will return `{ sub: { child: { sub: { name: { err: [ "Is required" ] } } } } }`
+- Calling `hasChildName(null)` will return `{ sub: { child: { sub: { name: { err: [ "Is required" ] } } } } }`
