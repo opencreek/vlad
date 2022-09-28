@@ -3,6 +3,10 @@
 import { PrimitiveErrors, SubjectType, Validator } from "../types.ts";
 import { deepMerge } from "../deps.ts";
 
+type PartialReturnOrPrimitive<V extends Validator> = ReturnType<V> extends
+  PrimitiveErrors | undefined ? NonNullable<ReturnType<V>>
+  : Partial<ReturnType<V>>;
+
 /**
  * Builds a validator function that applies all given validators to a value, merging their results
  *
@@ -24,8 +28,6 @@ import { deepMerge } from "../deps.ts";
  * ```
  */
 
-type PartialReturnOrPrimitive<V extends Validator> = ReturnType<V> extends
-  PrimitiveErrors ? ReturnType<V> : Partial<ReturnType<V>>;
 // deno-fmt-ignore
 export function all<V1 extends Validator>(validator1: V1): V1
 // deno-fmt-ignore

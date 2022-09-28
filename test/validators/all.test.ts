@@ -4,7 +4,9 @@ import {
   is,
   maxItems,
   minItems,
+  PrimitiveErrors,
   requiredPrimitive,
+  Validator,
 } from "../../src/vlad.ts";
 import { min } from "../../src/validators/min.ts";
 import { assertEquals } from "../testingDeps.ts";
@@ -67,4 +69,16 @@ Deno.test("should merge complicated errors correctly", () => {
 
   const output = validator(undefined);
   assertEquals(output, ["date required", "other date error"]);
+});
+
+Deno.test("should merge complicated errors correctly", () => {
+  const validator = all(
+    requiredPrimitive("date required"),
+    (_a: string | undefined): PrimitiveErrors | undefined => {
+      return ["other date error"];
+    },
+  );
+  // this only checks types
+  // deno-lint-ignore ban-types
+  const _bla: Validator<string, PrimitiveErrors, {}> = validator;
 });
