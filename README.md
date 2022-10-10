@@ -13,18 +13,21 @@ following those standards very easy to write, compose, reuse and consume.
     - object
     - allItems
     - all
+    - some
     - Composition Example
 - Utilities
     - validator
-    - mergeErrors
     - err
     - sub
+    - mergeErrors
 - Validators
     - required
-    - minLength
+    - nullish
+    - is
+    - length
+    - minLength / maxLength
     - min / max
     - minItems / maxItems
-
 
 ## Core Concepts
 
@@ -147,34 +150,8 @@ const validatePerson = object({
 })
 ```
 
-Calling
-
-```ts
-validatePerson({})
-```
-
-will return
-
-```ts
-{
-    sub: {
-        name: { err: [ "Is required" ] },
-        age: { err: [ "Is required" ] },
-    }
-}
-```
-
-But calling
-
-```ts
-validateperson({ name: "Sam", age: 36 })
-```
-
-will return
-
-```ts
-undefined
-```
+- Calling ```ts validatePerson({}) ``` will return ```ts { sub: { name: { err: [ "Is required" ] }, age: { err: [ "Is required" ] }, } } ```
+- But calling ```ts validateperson({ name: "Sam", age: 36 }) ``` will return ```ts undefined ```
 
 As `object` just returns another validator, it can be nested arbitrarily deep itself:
 
@@ -227,21 +204,7 @@ Assume wen want to validate that all items in an array are not empty:
 const arrayFullValidator = allItems(required)
 ```
 
-Calling
-
-```ts
-arrayFullValidator([5, undefined, ""])
-```
-
-will return
-
-```ts
-{
-    sub: {
-        1: { err: [ "Is required" ] }
-    }
-}
-```
+- Calling ```ts arrayFullValidator([5, undefined, ""]) ``` will return ```ts { sub: { 1: { err: [ "Is required" ] } } } ```
 
 ### `all`
 
@@ -269,19 +232,20 @@ Assume we want to validate that a value is not empty and a positive even number:
 const example = all(required, even, positive)
 ```
 
-Calling
+- Calling ```ts example(-3) ``` will return ```ts { err: [ "Must be even", "Must be positive" ] } ```
 
-```ts
-example(-3)
-```
+### `some`
 
-will return
+`some` expects up to ten validators and returns a validator that applies all of them and returns `undefined` if **at least one of them** returns undefined.
+Otherwise, it merges all their errors and returns that.
 
-```ts
-{
-    err: [ "Must be even", "Must be positive" ]
-}
-```
+Given the `even` and `positive` examples above, asumming this validator:
+
+```ts const example = some(even, positive) ```
+
+- Calling ```ts example(-3) ``` will return ```ts { err: [ "Must be even", "Must be positive" ] } ```
+- Calling ```ts example(-2) ``` will return ```ts undefined ```
+- Calling ```ts example(-3) ``` will return ```ts undefined ```
 
 ### Composition example
 
@@ -378,6 +342,10 @@ in `all`). This means it will concatenate `err` arrays on the same level and oth
 
 Examples:
 
-- Calling `hasChildName(null)` will return `{ sub: { child: { sub: { name: { err: [ "Is required" ] } } } } }`
-- Calling `hasChildName(null)` will return `{ sub: { child: { sub: { name: { err: [ "Is required" ] } } } } }`
-- Calling `hasChildName(null)` will return `{ sub: { child: { sub: { name: { err: [ "Is required" ] } } } } }`
+- Calling `mergeErrors(undefined, { err: [ "Is required" ] })` will return `{ err: [ "Is required" ] }`
+- Calling `mergeErrors({ err: [ "Foo" ] }, { err: [ "Bar" ] })` will return `{ err: [ "Foo", "Bar" ] }`
+- Calling `mergeErrors({ err: [ "Foo" ] }, { sub: { name: { err: [ "Bar" ] } } })` will return `{ err: [ "Foo" ], sub: { name: { err: [ "Bar" ] } } }`
+
+You will usually not need this when writing validators. It can however be useful when you want to merge errors from different validators
+running in different places where you cannot use `all`, e.g. a validator running in the browser and the result from a validator in a backend
+server response.
