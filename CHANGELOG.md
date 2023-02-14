@@ -1,3 +1,15 @@
+# v0.5.3 (Tue Feb 14 2023)
+
+#### 🐛 Bug Fix
+
+- Fix some not merging primitive errors correctly [#15](https://github.com/opencreek/vlad/pull/15) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.5.2 (Wed Sep 28 2022)
 
 #### 🐛 Bug Fix
