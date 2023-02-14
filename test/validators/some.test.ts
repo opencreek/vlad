@@ -40,3 +40,15 @@ Deno.test("should validate, if at least one of the validators passes", () => {
 
   assertEquals(output, undefined);
 });
+
+Deno.test("should correctly merge primitive errors", () => {
+  const validator = some(
+    minItems(3, "Must have at least 3 items"),
+    minItems(2, "Must have at least 2 items"),
+  );
+  const output = validator(["asdf"]);
+
+  assertEquals(output, {
+    _self: ["Must have at least 3 items", "Must have at least 2 items"],
+  });
+});

@@ -2,7 +2,9 @@
 
 #### 🐛 Bug Fix
 
-- Fix all validator on primitive errors [#14](https://github.com/opencreek/vlad/pull/14) ([@reckter](https://github.com/reckter))
+- Fix all validator on primitive errors
+  [#14](https://github.com/opencreek/vlad/pull/14)
+  ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 
