@@ -2,7 +2,9 @@
 
 #### 🐛 Bug Fix
 
-- Fix some not merging primitive errors correctly [#15](https://github.com/opencreek/vlad/pull/15) ([@reckter](https://github.com/reckter))
+- Fix some not merging primitive errors correctly
+  [#15](https://github.com/opencreek/vlad/pull/15)
+  ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 
