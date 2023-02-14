@@ -1,19 +1,18 @@
-// @ts-nocheck Deepmerge magic, will be replaced
-
 import { ContextType, SubjectType, Validator } from "../types.ts";
 
 function resolveCondition<V1 extends Validator>(
   subject: SubjectType<V1>,
+  context: ContextType<V1>,
   condition: Condition<V1>,
 ): boolean {
   if (typeof condition === "function") {
-    return condition(subject);
+    return condition(subject, context);
   }
 
   return condition;
 }
 
-export type Condition<V1> =
+export type Condition<V1 extends Validator> =
   | ((value: SubjectType<V1>, context: ContextType<V1>) => boolean)
   | boolean;
 /**
@@ -41,12 +40,12 @@ export function includeIf<V1 extends Validator>(
   validator1: V1,
 ): V1 {
   return function includeIfValidator(subject, context) {
-    const conditionResult = resolveCondition(subject, condition);
+    const conditionResult = resolveCondition(subject, context, condition);
 
     if (!conditionResult) {
       return undefined;
     }
 
     return validator1(subject, context);
-  };
+  } as V1;
 }
