@@ -1,3 +1,15 @@
+# v0.7.0 (Wed Mar 15 2023)
+
+#### 🚀 Enhancement
+
+- Add regex validator [#17](https://github.com/opencreek/vlad/pull/17) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.6.0 (Tue Feb 14 2023)
 
 #### 🚀 Enhancement
