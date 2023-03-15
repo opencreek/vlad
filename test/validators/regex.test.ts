@@ -7,9 +7,9 @@ const validator = regex(/.*e.*/, testMessage);
 
 const minTest = buildValidatorTest(validator, [testMessage]);
 
-// Deno.test("succeeds on undefined", () => {
-//   minTest(undefined, true);
-// });
+Deno.test("succeeds on undefined", () => {
+  minTest(undefined, true);
+});
 Deno.test("succeeds on event", () => {
   minTest("event", true);
 });
