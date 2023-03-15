@@ -14,5 +14,6 @@ export * from "./validators/requiredObject.ts";
 export * from "./validators/requiredPrimitive.ts";
 export * from "./validators/some.ts";
 export * from "./validators/includeIf.ts";
+export * from "./validators/regex.ts";
 
 export * from "./types.ts";

@@ -2,7 +2,8 @@
 
 #### 🚀 Enhancement
 
-- Add Include if validator [#16](https://github.com/opencreek/vlad/pull/16) ([@reckter](https://github.com/reckter))
+- Add Include if validator [#16](https://github.com/opencreek/vlad/pull/16)
+  ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 
