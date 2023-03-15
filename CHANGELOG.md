@@ -1,3 +1,15 @@
+# v0.6.0 (Tue Feb 14 2023)
+
+#### 🚀 Enhancement
+
+- Add Include if validator [#16](https://github.com/opencreek/vlad/pull/16) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.5.3 (Tue Feb 14 2023)
 
 #### 🐛 Bug Fix
