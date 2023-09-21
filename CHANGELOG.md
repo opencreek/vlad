@@ -2,7 +2,8 @@
 
 #### 🚀 Enhancement
 
-- Add regex validator [#17](https://github.com/opencreek/vlad/pull/17) ([@reckter](https://github.com/reckter))
+- Add regex validator [#17](https://github.com/opencreek/vlad/pull/17)
+  ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 

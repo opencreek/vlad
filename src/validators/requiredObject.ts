@@ -23,7 +23,6 @@ export function requiredObject(
   message: string,
 ): Validator<
   // we actually want all non-primitives here
-  // deno-lint-ignore ban-types
   object,
   ObjectTopLevelError<PrimitiveErrors>
 >;
