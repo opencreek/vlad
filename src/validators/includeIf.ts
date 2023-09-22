@@ -33,12 +33,16 @@ export type Condition<V1 extends Validator> =
  * ```
  */
 
-export function includeIf<V1 extends Validator>(
+export function includeIf<
+  // deno-lint-ignore no-explicit-any
+  Subject extends any,
+  V1 extends Validator,
+>(
   condition:
-    | ((value: SubjectType<V1>, context: ContextType<V1>) => boolean)
+    | ((value: Subject, context: ContextType<V1>) => boolean)
     | boolean,
   validator1: V1,
-): V1 {
+): Validator<SubjectType<V1> & Subject, ReturnType<V1>> {
   return function includeIfValidator(subject, context) {
     const conditionResult = resolveCondition(subject, context, condition);
 

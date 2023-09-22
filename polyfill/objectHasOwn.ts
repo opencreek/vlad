@@ -1,6 +1,5 @@
 declare global {
   interface Object {
-    // deno-lint-ignore ban-types
     hasOwn(subject: object, property: PropertyKey): boolean;
   }
 }
