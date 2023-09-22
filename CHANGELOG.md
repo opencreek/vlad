@@ -1,3 +1,15 @@
+# v0.8.0 (Fri Sep 22 2023)
+
+#### 🚀 Enhancement
+
+- Make includeIf infer types from the condition as well [#18](https://github.com/opencreek/vlad/pull/18) ([@reckter](https://github.com/reckter))
+
+#### Authors: 1
+
+- Hannes Güdelhöfer ([@reckter](https://github.com/reckter))
+
+---
+
 # v0.7.0 (Wed Mar 15 2023)
 
 #### 🚀 Enhancement
