@@ -17,3 +17,4 @@ export * from "./validators/includeIf.ts";
 export * from "./validators/regex.ts";
 
 export * from "./types.ts";
+export { type PartialReturnOrPrimitive } from "./validators/partialReturnOrPrimitive.ts";

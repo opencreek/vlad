@@ -1,11 +1,8 @@
 // @ts-nocheck Deepmerge magic, will be replaced
 
-import { PrimitiveErrors, SubjectType, Validator } from "../types.ts";
+import { SubjectType, Validator } from "../types.ts";
 import { deepMerge } from "../deps.ts";
-
-type PartialReturnOrPrimitive<V extends Validator> = ReturnType<V> extends
-  PrimitiveErrors | undefined ? NonNullable<ReturnType<V>>
-  : Partial<ReturnType<V>>;
+import { PartialReturnOrPrimitive } from "./partialReturnOrPrimitive.ts";
 
 /**
  * Builds a validator function that applies all given validators to a value, merging their results
