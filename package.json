@@ -4,7 +4,7 @@
     "dist",
     "src"
   ],
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Pure, functional, minimal, Typescript first validation library",
   "main": "dist/src/vlad.js",
   "publishConfig": {
