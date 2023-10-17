@@ -2,6 +2,7 @@
 
 import { SubjectType, Validator } from "../types.ts";
 import { deepMerge } from "../deps.ts";
+import { PartialReturnOrPrimitive } from "./partialReturnOrPrimitive.ts";
 
 /**
  * Builds a validator function that validates, if at least one of the given validators passes
