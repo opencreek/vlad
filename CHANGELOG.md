@@ -2,7 +2,9 @@
 
 #### 🚀 Enhancement
 
-- Make includeIf infer types from the condition as well [#18](https://github.com/opencreek/vlad/pull/18) ([@reckter](https://github.com/reckter))
+- Make includeIf infer types from the condition as well
+  [#18](https://github.com/opencreek/vlad/pull/18)
+  ([@reckter](https://github.com/reckter))
 
 #### Authors: 1
 

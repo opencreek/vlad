@@ -1,5 +1,11 @@
 import { some } from "../../src/validators/some.ts";
-import { is, maxItems, minItems } from "../../src/vlad.ts";
+import {
+  is,
+  maxItems,
+  minItems,
+  PrimitiveErrors,
+  Validator,
+} from "../../src/vlad.ts";
 import { assertEquals } from "../testingDeps.ts";
 
 Deno.test("should not change the result of a single is validator", () => {
@@ -51,4 +57,14 @@ Deno.test("should correctly merge primitive errors", () => {
   assertEquals(output, {
     _self: ["Must have at least 3 items", "Must have at least 2 items"],
   });
+});
+
+Deno.test("should correctly infer types with primitive validators", () => {
+  const validator = some(
+    is(3, "must be 3"),
+    is(2, "must be 2"),
+  ) satisfies Validator<Partial<number>, PrimitiveErrors>;
+  const output = validator(1);
+
+  assertEquals(output, ["must be 3", "must be 2"]);
 });
